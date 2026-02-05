@@ -1,0 +1,254 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background-color:  #2a1a0f;
+  display: flex;
+  flex-direction: column;
+}
+
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #2a1a0f; /* Couleur de fond */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* comme ça c toujours au-dessus */
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+}
+
+.loader-wrapper.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader {
+  /*le cercle qui tourne*/
+  width: 60px;
+  height: 60px;
+  border: 4px solid #ffb278;
+  border-top: 4px solid #382100;
+  border-radius: 100%;
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  color: #fff9ea;
+  font-family: "jaro", sans-serif;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  letter-spacing: 2px;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.progress-bar {
+  width: 300px;
+  height: 4px;
+  background: #ffb37863;
+  border-radius: 10px;
+  margin-top: 2rem;
+  overflow: hidden;
+}
+
+/*la barre de chargeemnt*/
+.progress-fill {
+  height: 100%;
+  background: #ffb278;
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+/* Fin du chargement ^^ */
+
+/* Main container */
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  position: relative;
+}
+
+/* Le titre "Bienvenue" */
+.titre {
+  font-family: "bebas", sans-serif;
+  color: #fff9ea;
+  font-size: 3rem;
+  letter-spacing: 5px;
+  text-align: center;
+  margin-top: 120px;
+  margin-bottom: 100px;
+}
+
+@font-face {
+  font-family: "jaro";
+  src: url("ttf/Jaro-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "bebas";
+  src: url("ttf/BebasNeue-Regular.ttf") format("truetype");
+}
+
+/* l'image du logo*/
+.icon-container {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-wrapper {
+  position: relative;
+  height: 60px;
+}
+
+.skewed-input {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #e8b899 0%, #e67e3a 100%);
+  transform: skewY(-5deg);
+  border: none;
+  padding: 0 25px;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  font-family: "bebas", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  outline: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Les 2 boutons 1= identifiant et 2=mot de passe */
+.input-wrapper:nth-child(1) .skewed-input {
+  background: linear-gradient(to right, #FFF9EA 0%,#FFB278 100%);
+}
+.input-wrapper:nth-child(2) .skewed-input {
+  background: linear-gradient(to right, #F16E24 0%, #FFB278 100%);
+}
+/* mots des 2 boutons  */
+.skewed-input::placeholder {
+  color: rgba(0, 0, 0, 0.39);
+  font-family: "bebas", sans-serif;
+  opacity: 0.9;
+  font-weight: 1000;
+}
+/* Les 2 boutons en focus */
+.skewed-input:focus {
+  transform: skewY(-3deg) translateX(5px);
+  box-shadow: 0 6px 20px rgba(255, 123, 0, 0.4);
+}
+
+/* Boutton Valider*/
+.validate-btn {
+  width: 180px;
+  height: 50px;
+  background:#FFF9EA;
+  border: none;
+  border-radius: 25px;
+  color: #000000;
+  font-family: "bebas", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin: 25px auto 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.validate-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  background: #FFB278;
+}
+
+.validate-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Les animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.titre {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.icon-container {
+  animation: fadeIn 0.8s ease-out 0.2s backwards;
+}
+
+.input-wrapper:nth-child(1) {
+  animation: fadeIn 0.6s ease-out 0.4s backwards;
+}
+
+.input-wrapper:nth-child(2) {
+  animation: fadeIn 0.6s ease-out 0.5s backwards;
+}
+
+.validate-btn {
+  animation: fadeIn 0.6s ease-out 0.6s backwards;
+}
+
+.cible {
+  margin-top: 250px;
+  margin-left: 25%;
+  z-index: 10;
+}
+
