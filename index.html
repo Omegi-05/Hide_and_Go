@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <!-- Heyyyyyyy !!!  ≧ ﹏ ≦ -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/icon.png" />
+    <title>Hide&Go - Accueil</title>
+
+    <!--chargéééééé chargéééé-->
+    <div class="loader-wrapper" id="loader">
+      <div class="loader"></div>
+      <div class="loader-text">Chargement...</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </head>
+
+  <body>
+    <!--contenue important au centre-->
+    <div class="container">
+      <h1 class="titre">BIENVENUE</h1>
+
+      <div class="icon-container">
+        <div class="jsp"> <!-- vide1 -->
+        </div>
+        <img src="images/cibles_orange.png" alt="Cible" class="running-icon"/>
+      </div>
+
+      <form id="login-form" class="form-container">
+
+      <!--Bouton Identifiant-->
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="user-id"
+            class="skewed-input"
+            placeholder="IDENTIFIANT..."
+            autocomplete="username"
+            required/>
+        </div>
+
+        <!--Bouton Mot de passe-->
+        <div class="input-wrapper">
+          <input
+            type="password"
+             id="password"
+            class="skewed-input"
+            placeholder="MOT DE PASSE..."
+            autocomplete="current-password"
+            required/>
+        </div>
+
+        <button type="submit" class="validate-btn">VALIDER </button>
+        <script>
+          // Gestionnaire de soumission du formulaire//
+            const form = document.querySelector('#login-form');
+            
+            console.log('Formulaire trouvé !', form);
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Formulaire soumis !');
+                
+                const usernameInput = document.querySelector('#user-id');
+                const passwordInput = document.querySelector('#password');
+                const btn = this.querySelector('.validate-btn');
+                const originalText = btn.textContent;
+                
+                // Vérifier que les éléments existent//
+                if (!usernameInput || !passwordInput) {
+                    console.error('Champs de formulaire introuvables');
+                    console.log('usernameInput:', usernameInput);
+                    console.log('passwordInput:', passwordInput);
+                    return;
+                }
+                
+                // Récupérer les valeurs des champs//
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+                
+                console.log('Identifiant:', username);
+                console.log('Mot de passe:', password ? '***' : '(vide)');
+                
+                // Vérifier si les deux champs sont remplis//
+                if (username && password) {
+                    btn.textContent = 'CONNEXION...';
+                    btn.style.transform = 'scale(0.95)';
+                    
+                    setTimeout(() => {
+                        btn.textContent = '✓ VALIDÉ';
+                        btn.style.background = '#5cb85c';
+                        btn.style.color = 'white';
+                        
+                        setTimeout(() => {
+                            // Rediriger vers l'interface de carte//
+                            function myFunction() {
+            window.location.href = 'map.html';
+        }
+                            myFunction();
+                        }, 1000);
+                    }, 1000);
+                } else {
+                    // Afficher une erreur si les champs sont vides//
+                    console.log('Champs vides détectés');
+                    btn.textContent = '✗ CHAMPS REQUIS';
+                    btn.style.background = '#e74c3c';
+                    btn.style.color = 'white';
+                    btn.style.transform = 'scale(0.95)';
+                    
+                    // Animation de secousse
+                    btn.style.animation = 'shake 0.5s';
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '';
+                        btn.style.color = '';
+                        btn.style.transform = '';
+                        btn.style.animation = '';
+                    }, 1500);
+                }
+            });
+
+            // Effets au focus des champs de saisie//
+            const inputs = document.querySelectorAll('.skewed-input');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.letterSpacing = '1.5px';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.letterSpacing = '1px';
+                });
+            });
+            
+    
+        </script>
+      </form>
+    </div>
+
+  </body>
+</html>

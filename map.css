@@ -1,0 +1,373 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+:root {
+  --orange-primary: #f16e24;
+  --orange-light: #ffb278;
+  --bg-overlay:#2a1a0f;
+  --blue-marker: #339af4;
+  --creme:  #fff9ea;
+}
+
+body {
+  background:#2a1a0f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+@font-face {
+  font-family: "jaro";
+  src: url("ttf/Jaro-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "bebas";
+  src: url("ttf/BebasNeue-Regular.ttf") format("truetype");
+}
+
+/* Top header */
+.header {
+  background: var(--bg-overlay);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 100;
+}
+
+.player-icon {
+  width: 82px;
+  height: 82px;
+  background: var(--creme);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.player-icon svg {
+  width: 70px;
+  height: 70px;
+  fill: var(--bg-overlay);
+}
+
+.player-icon:hover {
+  transform: scale(1.1);
+  background-color: #ffb278;
+}
+
+.player-icon svg:hover {
+  width: 80px;
+  height: 80px;
+  fill: var(--creme);
+}
+.player-tabs {
+    position: absolute;
+  display: flex;
+  gap: 5px;
+  flex: 1;
+  font-family: "Bebas", sans-serif;
+    left: 33%;
+}
+
+.player-tab {
+  background: var(--orange-primary);
+  color: var(--creme);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-family: "Bebas", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.player-tab:hover {
+  background: var(--orange-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: var(--bg-overlay);
+}
+
+.player-tab.active {
+  background: var(--creme);
+  color: var(--bg-overlay);
+}
+
+.attente {
+  left: 145px ;
+  position: absolute;
+  top: 80px;
+  color: var(--creme);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  animation: pulse 2s ease-in-out infinite;
+  font-family: "Bebas", sans-serif;
+  z-index: 300;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Map container */
+.map-container {
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - 56px);
+  overflow: hidden;
+  background: #e8e4dc;
+}
+
+/* SVG map background */
+.map-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+}
+
+/* Objectives/markers on map */
+.objectives-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.objective {
+  position: absolute;
+  pointer-events: all;
+  animation: pop 0.6s ease-out backwards;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.objective:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.objective:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.objective:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.objective:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+/* LES CERCCCLLEEEEEEEEEEEEEEEEEEEEEEEEEEES */
+.gros_cercle {
+  border: 4px solid var(--orange-primary);
+  position: absolute;
+  background: #764b2dc2;
+  color: #fff9ea;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.grosscore {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  font-family: jaro, sans-serif;
+  line-height: 1;
+  margin-bottom: 4px;
+  z-index: 10;
+}
+
+.grostemps {
+  color: #fff9ea;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: lowercase;
+  z-index: 10;
+  font-family: "bebas", sans-serif;
+}
+
+/* Circle indicators */
+.les_cercles {
+  border: 4px solid var(--orange-primary);
+  position: absolute;
+  background: #764b2d69;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.distance {
+  font-family: "bebas", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brown-medium);
+  margin-bottom: 2px;
+}
+
+.score {
+  font-family: "bebas", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  font-family: jaro, sans-serif;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.temps {
+  font-family: "bebas", sans-serif;
+  color: rgb(0, 0, 0);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+/* Player position marker */
+.player-marker {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--blue-marker);
+  border: 3px solid white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 12px rgba(255, 239, 232, 0.5);
+  z-index: 50;
+  animation: markerPulse 2s ease-in-out infinite;
+}
+
+@keyframes markerPulse {
+  0%,
+  100% {
+    box-shadow: 0 0px 50px #0088ff;
+  }
+  50% {
+    box-shadow: 0 0px 20px 20px #81c4ff;
+  }
+}
+
+.player-label {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blue-marker);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 50;
+}
+
+/* Curved zone indicator */
+.zone {
+  position: absolute;
+  border: 6px solid var(--orange-primary);
+  border-radius: 50%;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: zoneGrow 1s ease-out backwards;
+  z-index: 1;
+}
+
+@keyframes zoneGrow {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .timer-value {
+    font-size: 36px;
+  }
+
+  .circle-score {
+    font-size: 22px;
+  }
+}
+
+/* Conteneur du téléphone iPhone */
+.conteneur-telephone {
+  top: 25px;
+  width: 430px;
+  height: 804px;
+  border-radius: 50px;
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Écran du téléphone */
+.ecran {
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Conteneur de la carte (zone de navigation) */
+.conteneur-carte {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  touch-action: none;
+}
+
+/* Image de la carte */
+.image-carte {
+  width: auto;
+  height: auto;
+  min-width: 150%;
+  min-height: 150%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
