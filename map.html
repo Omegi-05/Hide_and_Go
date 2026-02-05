@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="map.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/icon.png" />
+    <title>Hide&Go - Carte</title>
+</head>
+
+<body>
+     <div class="attente">En attente de joueurs...</div>
+     
+     <div class="header">
+        <div> 
+            <button class="player-icon" onclick="window.location.href='profil.html'">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            </button>
+        </div>
+
+        <div class="player-tabs">
+            <button class="player-tab active">Joueur 1</button>
+            <button class="player-tab">Joueur 2</button>
+            <button class="player-tab">Joueur 3</button>
+        </div>
+       
+    </div>
+
+  
+
+      
+        <!-- notre position fictif hein-->
+        <div class="player-marker" style="top: 35%; left: 48%;">
+            <div class="player-label">Vous êtes ici</div>
+        </div>
+
+        <!-- Les Cercles avec leurs éléments -->
+        <div class="objectives-container">
+
+            <!-- cercle énooorme 1 -->
+            <div class="objective gros_cercle" onclick="window.location.href='game.html'" style="top: 28%; left: 50%; width: 180px; height: 180px;">
+                <div class="grosscore">09/15</div>
+                <div class="grostemps">encore 20 sec..</div>
+            </div>
+
+            <!-- bb cercle 2 -->
+            <button class="objective les_cercles" onclick="window.location.href='game.html'" style="top: 45%; left: 25%; width: 140px; height: 140px;">
+                <div class="distance">à 9m</div>
+                <div class="score">31/50</div>
+                <div class="temps">encore 5 min..</div>
+            </button>
+
+            <!-- bb cercle 3 -->
+            <button class="objective les_cercles" onclick="window.location.href='game.html'" style="top: 62%; left: 55%; width: 150px; height: 150px;">
+                <div class="distance">à 33m</div>
+                <div class="score">17/20</div>
+                <div class="temps">encore 2 min..</div>
+            </button>
+
+            <!-- bb cercle 4 -->
+            <button class="objective les_cercles" onclick="window.location.href='game.html'"style="top: 78%; left: 35%; width: 130px; height: 130px;">
+                <div class="distance">à 49m</div>
+                <div class="score">22/40</div>
+                <div class="temps">encore 12 min..</div>
+                <!--je viens de capter que c'était pas des score mais le nombre de joueur..😭🙏-->
+            </button>
+        </div>
+    </div>
+
+      <!-- Map -->
+    <div class="conteneur-telephone">
+      <div class="ecran">
+        <!-- Conteneur de la carte interactive -->
+        <div class="conteneur-carte" id="conteneurCarte">
+          <img
+            src="images/la carte.png"
+            alt="gobelins"
+            class="image-carte"
+            id="imageCarte"
+          />
+            <!-- les zone  qui rassemblent les arenes -->
+        <div class="zone" style="top: 25%; left: 30%; width: 500px; height: 500px;"></div>
+
+        </div>
+      </div>
+    </div>
+        
+</body>
+</html>
