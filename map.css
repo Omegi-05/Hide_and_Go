@@ -333,15 +333,17 @@ body {
   }
 }
 
-/* Conteneur du téléphone iPhone */
+
+/* Conteneur du téléphone iPhone 15 */
 .conteneur-telephone {
   top: 25px;
   width: 390px;
-  height: 720px;
+  height: 680px;
   border-radius: 50px;
   padding: 12px;
   position: relative;
   overflow: hidden;
+  display: flex;
 }
 
 /* Écran du téléphone */
@@ -371,3 +373,4 @@ body {
   user-select: none;
   -webkit-user-drag: none;
 }
+
