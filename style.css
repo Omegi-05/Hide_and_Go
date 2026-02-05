@@ -9,6 +9,7 @@ body {
   background-color:  #2a1a0f;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .loader-wrapper {
