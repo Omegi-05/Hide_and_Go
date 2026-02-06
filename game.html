@@ -3,27 +3,247 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="game.js" rel="script" type="text/javascript"></script>
-    <link href="game.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" type="image/x-icon" href="images/icon.png" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.18.1/mapbox-gl.js"></script>
     <title>Hide&Go - Game</title>
   </head>
 
   <body>
-    <!-- Écrans de décompte -->
-    <div class="countdown-screen screen-3" id="screen3">
-      <div class="chiiffre">3</div>
-    </div>
+    <!-- svp il est 01h du mat, un ptit sous please🥀-->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    <div class="countdown-screen screen-2" id="screen2">
-      <div class="chiiffre">2</div>
-    </div>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #2a1a00;
+      }
 
-    <div class="countdown-screen screen-1" id="screen1">
-      <div class="chiiffre">1</div>
-    </div>
+      :root {
+        --orange-primary: #f16e24;
+        --orange-light: #ffb278;
+        --bg-overlay: #2a1a0f;
+        --blue-marker: #339af4;
+        --creme: #fff9ea;
+      }
 
-    <!-- dernière page !!!!  -->
+      @font-face {
+        font-family: "jaro";
+        src: url("ttf/Jaro-Regular.ttf") format("truetype");
+      }
 
+      @font-face {
+        font-family: "bebas";
+        src: url("ttf/BebasNeue-Regular.ttf") format("truetype");
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+      }
+
+      /* Cadre avec coins arrondis et encoche */
+      .phone-frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none; /* Permet de cliquer à travers le cadre */
+        z-index: 1000;
+      }
+
+      .phone-frame::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 15px solid var(--bg-overlay);
+        border-radius: 40px;
+      }
+
+      .coins {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none; 
+        z-index: 1000;
+      }
+
+      .coins::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 15px solid var(--bg-overlay);
+      }
+
+      /* Encoche du haut avec scores */
+      .les_trucs {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        z-index: 1001;
+      }
+
+      .score-box {
+        background: rgba(51, 154, 244, 0.699);
+        border: 3px solid var(--bg-overlay);
+        border-radius: 12px;
+        padding: 12px 20px;
+        font-family: "bebas", sans-serif;
+        font-weight: bold;
+        font-size: 40px;
+        color: var(--creme);
+        min-width: 80px;
+        text-align: center;
+      }
+
+      .time-box {
+        background: var(--bg-overlay);
+        border: 3px solid var(--bg-overlay);
+        border-radius: 12px;
+        padding: 12px 20px;
+        font-family: "bebas", sans-serif;
+        font-weight: bold;
+        font-size: 32px;
+        color: var(--creme);
+        min-width: 100px;
+        text-align: center;
+      }
+
+      .score-box.orange {
+        background: rgba(241, 110, 36, 0.7);
+      }
+
+      .quitter {
+        background: var(--bg-overlay);
+        border: 3px solid var(--bg-overlay);
+        border-radius: 0 0 12px 12px;
+        padding: 0px 15px;
+        font-family: "bebas", sans-serif;
+        font-weight: bold;
+        font-size: 20px;
+        color: var(--creme);
+        text-align: center;
+        position: absolute;
+        top: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1001;
+      }
+
+      /* Bulle de chat en bas */
+.chat-bubble {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  max-width: 500px;
+  z-index: 1001;
+  pointer-events: auto;
+}
+
+.chat-input-container {
+  background: rgba(42, 26, 15, 0.651);
+  border: 4px solid var(--bg-overlay);
+  border-radius: 30px;
+  padding: 15px 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-family: "bebas", sans-serif;
+}
+
+.chat-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #d4c4b0;
+  font-weight: 500;
+}
+
+.chat-input::placeholder {
+  color: #d4c4b0;
+  opacity: 0.9;
+}
+    </style>
+
+    <div id="map"></div>
+    <div class="phone-frame"></div>
+    <div class="coins"></div>
+
+    <div class="les_trucs">
+      <div class="score-box">05</div>
+      <div class="time-box" id="timer">00:01</div>
+      <div class="score-box orange">12</div>
+  </div>
+
+    <button class="quitter" onclick="window.location.href='map.html'">✗</button>
+
+<div class="chat-bubble">
+  <div class="chat-input-container">
+    <input type="text" class="chat-input" placeholder="Écrire quelque chose..." />
+  </div>
+</div>
+
+    <script>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiMG1lZ2kiLCJhIjoiY21sYTBvcWhpMDdsdjNjczllc2g1MG9wdiJ9.YimNKLbg4uZX5HxWl7-Vmw";
+      const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/standard", // Use the standard style for the map
+        projection: "globe", // display the map as a globe
+        zoom: 17, // initial zoom level, 0 is the world view, higher values zoom in
+        center: [2.4058, 48.8757], // la ou on veux centre, moi c paris 19e arrondissement, porte des lilas
+        // //
+      });
+
+      map.addControl(new mapboxgl.NavigationControl());
+      map.scrollZoom.disable();
+
+      map.on("style.load", () => {
+        map.setFog({}); // Set the default atmosphere style
+      });
+
+      // Timer qui s'écoule //
+      let totalSeconds = 0 * 60 + 1; // Commence à 00:00 //
+      const timerElement = document.getElementById("timer");
+
+      function updateTimer() {
+        totalSeconds++;
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        timerElement.textContent =
+          String(minutes).padStart(2, "0") +
+          ":" +
+          String(seconds).padStart(2, "0");
+      }
+
+      // Met à jour le timer chaque seconde//
+      setInterval(updateTimer, 1000);
+    </script>
+
+    <!-- TT SE TRAVAIL SANS MM ETRE PAYER !!!!!! 🥀🥀-->
   </body>
 </html>
